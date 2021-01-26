@@ -1,3 +1,10 @@
+package com.example.testsjunit.domain;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class Cliente {
 
     private int id;
