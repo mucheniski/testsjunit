@@ -1,7 +1,11 @@
 package com.example.testsjunit.service;
 
 import com.example.testsjunit.domain.Cliente;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,22 +13,39 @@ import java.util.List;
 
 public class GerenciadoraClientesServiceTest {
 
-    @Test
-    public void pesquisaDeClientesTest() {
+    private GerenciadoraClientesService gerenciadoraClientesService;
+    private int idCliente01 = 1;
+    private int idCliente02 = 2;
+    private List<Cliente> clientesDoBanco = new ArrayList<>();
 
-        List<Cliente> clientesDoBanco = new ArrayList<>();
+    @BeforeEach
+    public void setUp() {
 
-        Cliente cliente01 = new Cliente(1,"Diego Mucheniski",34,"diegoemail@teste.com",true,1);
-        Cliente cliente02 = new Cliente(2,"Bruna Mucheniski",30,"brunaemail@teste.com",true,2);
+        Cliente cliente01 = new Cliente(idCliente01,"Diego Mucheniski",34,"diegoemail@teste.com",true,1);
+        Cliente cliente02 = new Cliente(idCliente02,"Bruna Mucheniski",30,"brunaemail@teste.com",true,2);
 
         clientesDoBanco.add(cliente01);
         clientesDoBanco.add(cliente02);
 
-        GerenciadoraClientesService gerenciadoraClientesService = new GerenciadoraClientesService(clientesDoBanco);
+        gerenciadoraClientesService = new GerenciadoraClientesService(clientesDoBanco);
 
-        Cliente clientePesquisado = gerenciadoraClientesService.pesquisaCliente(1);
+//        System.out.println("setUp foi executado");
 
-        Assert.assertEquals(clientePesquisado.getId(), 1);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        gerenciadoraClientesService.limpaListaDeClientes();
+
+//        System.out.println("tearDown foi executado");
+    }
+
+    @Test
+    public void pesquisaDeClientesTest() {
+
+        Cliente clientePesquisado = gerenciadoraClientesService.pesquisaCliente(idCliente01);
+
+        Assert.assertEquals(clientePesquisado.getId(), idCliente01);
         Assert.assertEquals(clientePesquisado.getEmail(), "diegoemail@teste.com");
 
     }
@@ -32,21 +53,11 @@ public class GerenciadoraClientesServiceTest {
     @Test
     public void removeClientesTest() {
 
-        List<Cliente> clientesDoBanco = new ArrayList<>();
-
-        Cliente cliente01 = new Cliente(1,"Diego Mucheniski",34,"diegoemail@teste.com",true,1);
-        Cliente cliente02 = new Cliente(2,"Bruna Mucheniski",30,"brunaemail@teste.com",true,2);
-
-        clientesDoBanco.add(cliente01);
-        clientesDoBanco.add(cliente02);
-
-        GerenciadoraClientesService gerenciadoraClientesService = new GerenciadoraClientesService(clientesDoBanco);
-
-        boolean clienteRemovido = gerenciadoraClientesService.removeCliente(2);
+        boolean clienteRemovido = gerenciadoraClientesService.removeCliente(idCliente02);
 
         Assert.assertTrue(clienteRemovido);
-        Assert.assertEquals(clientesDoBanco.size(), 1);
-        Assert.assertNull(gerenciadoraClientesService.pesquisaCliente(2));
+        Assert.assertEquals(clientesDoBanco.size(), idCliente01);
+        Assert.assertNull(gerenciadoraClientesService.pesquisaCliente(idCliente02));
 
     }
 

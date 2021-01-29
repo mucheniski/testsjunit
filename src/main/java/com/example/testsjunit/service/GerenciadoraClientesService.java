@@ -86,7 +86,7 @@ public class GerenciadoraClientesService {
     /**
      * Limpa a lista de clientes, ou seja, remove todos eles.
      */
-    public void limpa() {
+    public void limpaListaDeClientes() {
         this.clientesDoBanco.clear();
     }
 
