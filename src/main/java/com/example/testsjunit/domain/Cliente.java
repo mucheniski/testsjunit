@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class Cliente {
 
     private int id;
@@ -14,4 +13,12 @@ public class Cliente {
     private boolean ativo;
     private int idContaCorrente;
 
+    public Cliente(int id, String nome, int idade, String email, boolean ativo, int idContaCorrente) {
+        this.id = id;
+        this.nome = nome;
+        this.idade = idade;
+        this.email = email;
+        this.ativo = ativo;
+        this.idContaCorrente = idContaCorrente;
+    }
 }

@@ -14,23 +14,8 @@ public class GerenciadoraClientesServiceTest {
 
         List<Cliente> clientesDoBanco = new ArrayList<>();
 
-        Cliente cliente01 = Cliente.builder()
-                .id(1)
-                .nome("Gustavo Farias")
-                .idade(31)
-                .email("gugafarias@gmail.com")
-                .ativo(true)
-                .idContaCorrente(1)
-                .build();
-
-        Cliente cliente02 = Cliente.builder()
-                .id(2)
-                .nome("Felipe Augusto")
-                .idade(34)
-                .email("felipeaugusto@gmail.com")
-                .ativo(true)
-                .idContaCorrente(2)
-                .build();
+        Cliente cliente01 = new Cliente(1,"Diego Mucheniski",34,"diegoemail@teste.com",true,1);
+        Cliente cliente02 = new Cliente(2,"Bruna Mucheniski",30,"brunaemail@teste.com",true,2);
 
         clientesDoBanco.add(cliente01);
         clientesDoBanco.add(cliente02);
@@ -40,7 +25,28 @@ public class GerenciadoraClientesServiceTest {
         Cliente clientePesquisado = gerenciadoraClientesService.pesquisaCliente(1);
 
         Assert.assertEquals(clientePesquisado.getId(), 1);
-        Assert.assertEquals(clientePesquisado.getEmail(), "gugafarias@gmail.com");
+        Assert.assertEquals(clientePesquisado.getEmail(), "diegoemail@teste.com");
+
+    }
+
+    @Test
+    public void removeClientesTest() {
+
+        List<Cliente> clientesDoBanco = new ArrayList<>();
+
+        Cliente cliente01 = new Cliente(1,"Diego Mucheniski",34,"diegoemail@teste.com",true,1);
+        Cliente cliente02 = new Cliente(2,"Bruna Mucheniski",30,"brunaemail@teste.com",true,2);
+
+        clientesDoBanco.add(cliente01);
+        clientesDoBanco.add(cliente02);
+
+        GerenciadoraClientesService gerenciadoraClientesService = new GerenciadoraClientesService(clientesDoBanco);
+
+        boolean clienteRemovido = gerenciadoraClientesService.removeCliente(2);
+
+        Assert.assertTrue(clienteRemovido);
+        Assert.assertEquals(clientesDoBanco.size(), 1);
+        Assert.assertNull(gerenciadoraClientesService.pesquisaCliente(2));
 
     }
 

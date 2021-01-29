@@ -160,23 +160,9 @@ public class TestsjunitApplication {
 		contasDoBanco.add(conta02);
 
 		// criando dois clientes e associando as contas criadas acima a eles
-		Cliente cliente01 = Cliente.builder()
-										.id(1)
-										.nome("Gustavo Farias")
-										.idade(31)
-										.email("gugafarias@gmail.com")
-										.ativo(true)
-										.idContaCorrente(conta01.getId())
-				                   .build();
+		Cliente cliente01 = new Cliente(1,"Diego Mucheniski",34,"diegoemail@teste.com",true,1);
+		Cliente cliente02 = new Cliente(2,"Bruna Mucheniski",30,"brunaemail@teste.com",true,2);
 
-		Cliente cliente02 = Cliente.builder()
-										.id(2)
-										.nome("Felipe Augusto")
-										.idade(34)
-										.email("felipeaugusto@gmail.com")
-										.ativo(true)
-										.idContaCorrente(conta02.getId())
-									.build();
 
 		// inserindo os clientes criados na lista de clientes do banco
 		clientesDoBanco.add(cliente01);
